@@ -1,0 +1,11 @@
+
+# build output / tests / benchmarks
+*.exe
+*.test
+*.prof
+
+# config files
+*.json
+
+# go build result
+keyvent
