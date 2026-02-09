@@ -1,7 +1,7 @@
 
 # (WIP) keyVent - LibreSplit Global Hotkeys
 
-> [!WARN]  
+> [!WARNING]  
 > This is a work in progress!
 
 > [!NOTE]  
@@ -47,10 +47,20 @@ Example config:
 - Cancel Run: Keypad 8
 - Close Libresplit: disabled
 
-The keybinds must be valid keycodes. You can run `./keyvent dumpkeys` to print all incoming key presses to the terminal, or have a look at [keymap.go](./keymap.go)   
+The keybinds must be valid keycodes. You can run `keyvent dumpkeys` to print all incoming key presses to the terminal, or have a look at [keymap.go](./keymap.go)   
 Use `0` to disable the key bind.
 
 
 ## Usage
 
-...
+Example:
+
+```
+keyvent control ./path/to/config.json
+```
+
+Print Help Text:
+
+```
+keyvent help
+```
