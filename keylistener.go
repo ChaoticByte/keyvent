@@ -1,5 +1,8 @@
 package main
 
+// Copyright (c) 2015 Marin (https://github.com/MarinX/keylogger)
+// Copyright (c) 2026 Julian Müller (ChaoticByte)
+
 import (
 	"bytes"
 	"encoding/binary"

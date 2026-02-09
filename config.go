@@ -1,5 +1,7 @@
 package main
 
+// Copyright (c) 2026 Julian Müller (ChaoticByte)
+
 type KeyBindsConfig struct {
 	StartOrSplit uint16 `json:"start_or_split"`
 	StopOrReset uint16 `json:"stop_or_reset"`
