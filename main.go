@@ -119,7 +119,6 @@ func main() {
 		os.Exit(1)
 	}
 
-	// define mode by command
 	switch os.Args[1] {
 	case "control":
 		// read config
@@ -143,7 +142,6 @@ func main() {
 		os.Exit(1)
 	}
 
-	// start listeners
 	// setup keyboard event listeners
 	kbs := FindAllKeyboardDevices()
 	for _, kb := range kbs {
