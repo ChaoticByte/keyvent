@@ -1,6 +1,7 @@
 package main
 
 // Extracted from /usr/include/linux/input-event-codes.h
+// TODO: maybe some of those should be removed
 
 const (
 	KEY_ESC = 1
