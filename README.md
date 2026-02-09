@@ -10,7 +10,7 @@
 This program uses udev to enable display server independent global hotkeys for [LibreSplit](https://libresplit.org/) on Linux.
 
 It detects keyboard input devices in `/dev/input/event*` and reads key presses from there.
-The program then controls LiveSplit through it's libresplit-ctl unix domain socket.
+The program then controls LibreSplit through it's libresplit-ctl unix domain socket.
 
 > [!NOTE]  
 > This software is heavily based on https://github.com/MarinX/keylogger
