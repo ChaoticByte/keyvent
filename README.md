@@ -23,6 +23,11 @@ This program was tested on
 - Debian 13 / Wayland
 
 
+## Permissions
+
+You need to be in the `input` group for this program to work.
+
+
 ## Config
 
 Example config:
