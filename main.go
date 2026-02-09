@@ -23,13 +23,6 @@ const (
 	CmdExit uint32 = 5 // close LibreSplit
 )
 
-func EncodeCmd(cmd uint32) []byte {
-	buf := make([]byte, 8)
-	binary.BigEndian.PutUint32(buf, 4) // encode length
-	binary.LittleEndian.PutUint32(buf[4:8], cmd) // encode cmd
-	return buf
-}
-
 // global vars
 
 var config Config
@@ -51,6 +44,13 @@ func PrintHelp() {
 	fmt.Print("    Print all keypresses to stdout\n\n")
 }
 
+
+func EncodeCmd(cmd uint32) []byte {
+	buf := make([]byte, 8)
+	binary.BigEndian.PutUint32(buf, 4) // encode length
+	binary.LittleEndian.PutUint32(buf[4:8], cmd) // encode cmd
+	return buf
+}
 
 func HandleDumpKey(e InputEvent) {
 	if _, found := keyCodeMap[e.Code]; found {
