@@ -29,16 +29,6 @@ func (i *InputEvent) KeyPress() bool {
 	return i.Value == 1
 }
 
-// KeyRelease is the value when we release the key on keyboard
-func (i *InputEvent) KeyRelease() bool {
-	return i.Value == 0
-}
-
-// Time of the keypress in nanoseconds
-func (i *InputEvent) TimeNano() int64 {
-	return i.Time.Nano()
-}
-
 // KeyEvent is the keyboard event for up/down (press/release)
 type KeyEvent int32
 
