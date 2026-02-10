@@ -151,6 +151,7 @@ func main() {
 			panic(err)
 		}
 		c := kl.Read()
+		defer kl.Close()
 		defer close(c)
 		go func () {
 			for {
@@ -165,5 +166,5 @@ func main() {
 	for { // wait
 		fmt.Scanln()
 	}
-	
+
 }

@@ -13,6 +13,15 @@ import (
 	"syscall"
 )
 
+// system paths
+const SysDeviceNamePath = "/sys/class/input/event%d/device/name"
+const DevInputEventPath = "/dev/input/event%d"
+
+// use lowercase names for devices, as we turn the device input name to lower case
+var restrictedDevices = devices{"mouse"}
+var allowedDevices = devices{"keyboard", "logitech mx keys"}
+
+
 // KeyListener wrapper around file descriptior
 type KeyListener struct {
 	fd *os.File
@@ -30,9 +39,7 @@ func (d *devices) hasDevice(str string) bool {
 	return false
 }
 
-// use lowercase names for devices, as we turn the device input name to lower case
-var restrictedDevices = devices{"mouse"}
-var allowedDevices = devices{"keyboard", "logitech mx keys"}
+
 
 // New creates a new keylogger for a device path
 func New(devPath string) (*KeyListener, error) {
@@ -48,41 +55,13 @@ func New(devPath string) (*KeyListener, error) {
 	return k, nil
 }
 
-// FindKeyboardDevice by going through each device registered on OS
-// Mostly it will contain keyword - keyboard
-// Returns the file path which contains events
-func FindKeyboardDevice() string {
-	path := "/sys/class/input/event%d/device/name"
-	resolved := "/dev/input/event%d"
-
-	for i := range 255 {
-		buff, err := os.ReadFile(fmt.Sprintf(path, i))
-		if err != nil {
-			continue
-		}
-
-		deviceName := strings.ToLower(string(buff))
-
-		if restrictedDevices.hasDevice(deviceName) {
-			continue
-		} else if allowedDevices.hasDevice(deviceName) {
-			return fmt.Sprintf(resolved, i)
-		}
-	}
-
-	return ""
-}
-
 // Like FindKeyboardDevice, but finds all devices which contain keyword 'keyboard'
 // Returns an array of file paths which contain keyboard events
 func FindAllKeyboardDevices() []string {
-	path := "/sys/class/input/event%d/device/name"
-	resolved := "/dev/input/event%d"
-
 	valid := make([]string, 0)
 
-	for i := 0; i < 255; i++ {
-		buff, err := os.ReadFile(fmt.Sprintf(path, i))
+	for i := range 255 {
+		buff, err := os.ReadFile(fmt.Sprintf(SysDeviceNamePath, i))
 
 		// prevent from checking non-existant files
 		if os.IsNotExist(err) {
@@ -97,7 +76,7 @@ func FindAllKeyboardDevices() []string {
 		if restrictedDevices.hasDevice(deviceName) {
 			continue
 		} else if allowedDevices.hasDevice(deviceName) {
-			valid = append(valid, fmt.Sprintf(resolved, i))
+			valid = append(valid, fmt.Sprintf(DevInputEventPath, i))
 		}
 	}
 	return valid
