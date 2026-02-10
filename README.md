@@ -1,8 +1,8 @@
 
-# (WIP) keyVent - LibreSplit Global Hotkeys
+# keyVent - LibreSplit Global Hotkeys
 
 > [!WARNING]  
-> This is a work in progress!
+> Still in beta stage. Expect bugs!
 
 > [!NOTE]  
 > Only single-key hotkeys are supported.
@@ -58,14 +58,27 @@ Use `0` to disable the key bind.
 
 ## Usage
 
-Example:
+```
+keyvent <command> [args...]
+
+Commands:
+
+  help
+    Print this help text
+
+  control <config>
+    Read the <config>-file and start listening for global hotkeys
+
+  info    <config>
+    Show informations about the given config file and the environment
+
+  dumpkeys
+    Print all keypresses to stdout
+
+```
+
+### Example
 
 ```
 keyvent control ./path/to/config.json
-```
-
-Print Help Text:
-
-```
-keyvent help
 ```
