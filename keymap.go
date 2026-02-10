@@ -236,6 +236,7 @@ const (
 )
 
 var keyCodeMap = map[uint16]string{
+	// 0 must not exist!
 	KEY_ESC: "ESC",
 	KEY_1: "1",
 	KEY_2: "2",

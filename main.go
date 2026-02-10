@@ -26,24 +26,24 @@ func HandleControl(e InputEvent) {
 	keybindFound := true
 	var cmd uint32
 	switch e.Code {
-	case config.KeyBinds.StartOrSplit:
+	case config.Keybinds.StartOrSplit:
 		cmd = CmdStartSplit
-	case config.KeyBinds.StopOrReset:
+	case config.Keybinds.StopOrReset:
 		cmd = CmdStopReset
-	case config.KeyBinds.Cancel:
+	case config.Keybinds.Cancel:
 		cmd = CmdCancel
-	case config.KeyBinds.Unsplit:
+	case config.Keybinds.Unsplit:
 		cmd = CmdUnsplit
-	case config.KeyBinds.SkipSplit:
+	case config.Keybinds.SkipSplit:
 		cmd = CmdSkip
-	case config.KeyBinds.CloseLibreSplit:
+	case config.Keybinds.CloseLibreSplit:
 		cmd = CmdExit
 	default:
 		keybindFound = false
 	}
-	if !keybindFound { return }
-	// send command to libresplit
-	SendCommand(cmd)
+	if keybindFound {
+		SendCommand(cmd)
+	}
 }
 
 // cli
@@ -56,6 +56,8 @@ func PrintHelp() {
 	fmt.Print("    Print this help text\n\n")
 	fmt.Print("  control <config>\n")
 	fmt.Print("    Read the <config>-file and start listening for global hotkeys\n\n")
+	fmt.Print("  info    <config>\n")
+	fmt.Print("    Show informations about the given config file and the environment\n\n")
 	fmt.Print("  dumpkeys\n")
 	fmt.Print("    Print all keypresses to stdout\n\n")
 	fmt.Printf("keyvent %s\n", Version)
@@ -72,7 +74,7 @@ func main() {
 		PrintHelp()
 		os.Exit(0)
 	}
-	if os.Args[1] == "control" && len(os.Args) < 3 {
+	if (os.Args[1] == "control" || os.Args[1] == "info") && len(os.Args) < 3 {
 		fmt.Print("Missing argument <config>\n\n")
 		PrintHelp()
 		os.Exit(1)
@@ -84,6 +86,31 @@ func main() {
 		DetectXdgRuntimeDir()
 		// set handler
 		handler = HandleControl
+	case "info":
+		ReadConfig()
+		DetectXdgRuntimeDir()
+		fmt.Println("Keybinds:")
+		for _, fn := range config.Keybinds.FriendlyNames() {
+			keyname := "unset"
+			keyname_, found := keyCodeMap[fn.Code]
+			if found {
+				keyname = keyname_
+			}
+			fmt.Printf("  %s: %s (%d)\n", fn.FriendlyName, keyname, fn.Code)
+		}
+		lsSockPath := LibreSplitSocketPath()
+		fmt.Printf("LibreSplit Socket: %s\n", lsSockPath)
+		lsStatus := ""
+		_, err := os.Stat(lsSockPath)
+		if os.IsNotExist(err) {
+			lsStatus = "not running"
+		} else if err != nil {
+			lsStatus = fmt.Sprintf("? (%s)", err.Error())
+		} else {
+			lsStatus = "running"
+		}
+		fmt.Printf("LibreSplit: %s\n", lsStatus)
+		return
 	case "dumpkeys":
 		handler = HandleDumpKey
 	default:

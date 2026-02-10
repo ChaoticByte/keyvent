@@ -14,6 +14,7 @@ var eventsize = int(unsafe.Sizeof(InputEvent{}))
 // InputEvent is the keyboard event structure itself
 type InputEvent struct {
 	Time  syscall.Timeval
+	Type  uint16
 	Code  uint16
 	Value int32
 }

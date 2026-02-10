@@ -20,6 +20,10 @@ const (
 	CmdExit uint32 = 5 // close LibreSplit
 )
 
+func LibreSplitSocketPath() string {
+	return xdg_runtime_dir + "/" + LibreSplitSocket
+}
+
 func EncodeCmd(cmd uint32) []byte {
 	buf := make([]byte, 8)
 	binary.BigEndian.PutUint32(buf, 4) // encode length
@@ -30,7 +34,7 @@ func EncodeCmd(cmd uint32) []byte {
 func SendCommand(cmd uint32) {
 	// try opening socket
 	var err error
-	sock, err := net.Dial("unix", xdg_runtime_dir + "/" + LibreSplitSocket)
+	sock, err := net.Dial("unix", LibreSplitSocketPath())
 	if err != nil {
 		fmt.Println("Could not connect to libresplit: ", err)
 		return

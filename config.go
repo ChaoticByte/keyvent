@@ -7,7 +7,12 @@ import (
 	"os"
 )
 
-type KeyBindsConfig struct {
+type KeybindFriendlyName struct {
+	FriendlyName string
+	Code uint16
+}
+
+type KeybindsConfig struct {
 	StartOrSplit uint16 `json:"start_or_split"`
 	StopOrReset uint16 `json:"stop_or_reset"`
 	Cancel uint16 `json:"cancel"`
@@ -16,8 +21,19 @@ type KeyBindsConfig struct {
 	CloseLibreSplit uint16 `json:"close_libresplit"`
 }
 
+func (kbc *KeybindsConfig) FriendlyNames() []KeybindFriendlyName {
+	return []KeybindFriendlyName {
+		{ "Start/Split", kbc.StartOrSplit},
+		{ "Stop/Reset", kbc.StopOrReset},
+		{ "Cancel", kbc.Cancel},
+		{ "Undo Split", kbc.Unsplit},
+		{ "Skip Split", kbc.SkipSplit},
+		{ "Close LibreSplit", kbc.CloseLibreSplit},
+	}
+}
+
 var config struct {
-	KeyBinds KeyBindsConfig `json:"keybinds"`
+	Keybinds KeybindsConfig `json:"keybinds"`
 }
 
 func ReadConfig() {
