@@ -42,6 +42,7 @@ func PrintHelp() {
 	fmt.Print("    Read the <config>-file and start listening for global hotkeys\n\n")
 	fmt.Print("  dumpkeys\n")
 	fmt.Print("    Print all keypresses to stdout\n\n")
+	fmt.Printf("keyvent %s\n", Version)
 }
 
 

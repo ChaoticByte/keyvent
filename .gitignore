@@ -9,3 +9,4 @@
 
 # go build result
 keyvent
+dist/
