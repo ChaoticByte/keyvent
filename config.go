@@ -1,5 +1,10 @@
 package main
 
+import (
+	"encoding/json"
+	"os"
+)
+
 // Copyright (c) 2026 Julian Müller (ChaoticByte)
 
 type KeyBindsConfig struct {
@@ -11,6 +16,14 @@ type KeyBindsConfig struct {
 	CloseLibreSplit uint16 `json:"close_libresplit"`
 }
 
-type Config struct {
+var config struct {
 	KeyBinds KeyBindsConfig `json:"keybinds"`
+}
+
+func ReadConfig() {
+	// read config
+	configData, err := os.ReadFile(os.Args[2])
+	if err != nil { panic(err) }
+	err = json.Unmarshal(configData, &config)
+	if err != nil { panic(err) }
 }
