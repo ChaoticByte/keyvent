@@ -113,5 +113,4 @@ func main() {
 	for { // wait
 		fmt.Scanln()
 	}
-
 }

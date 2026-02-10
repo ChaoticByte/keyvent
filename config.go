@@ -1,11 +1,11 @@
 package main
 
+// Copyright (c) 2026 Julian Müller (ChaoticByte)
+
 import (
 	"encoding/json"
 	"os"
 )
-
-// Copyright (c) 2026 Julian Müller (ChaoticByte)
 
 type KeyBindsConfig struct {
 	StartOrSplit uint16 `json:"start_or_split"`

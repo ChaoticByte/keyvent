@@ -21,7 +21,6 @@ const DevInputEventPath = "/dev/input/event%d"
 var restrictedDevices = devices{"mouse"}
 var allowedDevices = devices{"keyboard", "logitech mx keys"}
 
-
 // KeyListener wrapper around file descriptior
 type KeyListener struct {
 	fd *os.File
@@ -38,8 +37,6 @@ func (d *devices) hasDevice(str string) bool {
 
 	return false
 }
-
-
 
 // New creates a new keylogger for a device path
 func New(devPath string) (*KeyListener, error) {
