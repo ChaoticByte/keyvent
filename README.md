@@ -20,7 +20,8 @@ The program then controls LibreSplit through it's libresplit-ctl unix domain soc
 
 This program was tested on
 
-- Debian 13 / Wayland
+- Debian 13 / Gnome / Wayland
+- Ubuntu 24.04 / Gnome / Wayland + X11
 
 
 ## Permissions
